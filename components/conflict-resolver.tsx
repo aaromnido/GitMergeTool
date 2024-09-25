@@ -35,8 +35,8 @@ export function ConflictResolverComponent() {
   return (
     <div className="flex h-screen bg-[#363848] text-gray-300">
       {/* Sidebar */}
-      <div className="w-64 bg-[#1A1B26] flex flex-col">
-        <div className="p-4 flex items-center justify-between text-sm bg-[#1A1B26] h-14">
+      <div className="w-64 bg-[#1A1B26] flex flex-col border-r border-gray-700">
+        <div className="p-4 flex items-center justify-between text-sm bg-[#1A1B26] h-14 border-b border-gray-700">
           <button className="text-gray-500 hover:text-gray-300" onClick={() => navigateConflict('prev')}>
             <ChevronLeft className="w-5 h-5" />
           </button>
@@ -59,7 +59,9 @@ export function ConflictResolverComponent() {
               </span>
               <span className="flex-grow truncate text-sm">{file.name}</span>
               {file.resolved && (
-                <Check className="w-5 h-5 text-[#74C991] flex-shrink-0" />
+                <div className="w-6 h-6 bg-[#74C991] rounded-full flex items-center justify-center">
+                  <Check className="w-3 h-3 text-[#1A1B26]" />
+                </div>
               )}
             </div>
           ))}
@@ -70,8 +72,8 @@ export function ConflictResolverComponent() {
       </div>
 
       {/* Main content */}
-      <div className="flex-grow flex flex-col gap-[1px]">
-        <div className="grid grid-cols-3 gap-[1px] flex-grow">
+      <div className="flex-grow flex flex-col gap-[1px] overflow-auto">
+        <div className="grid grid-cols-3 gap-[1px] flex-grow overflow-auto">
           <CodePanel
             title="Main Branch Changes"
             bgColor="bg-[#7B67A3]"
@@ -94,7 +96,7 @@ export function ConflictResolverComponent() {
             onSelect={() => handlePanelSelect('yours')}
           />
         </div>
-        <div className="flex-grow">
+        <div className="flex-grow overflow-auto">
           <CodePanel 
             title="Result" 
             bgColor="bg-[#508366]" 
@@ -157,7 +159,7 @@ exampleFunction();
               checked={isSelected}
               onChange={onSelect}
             />
-            <div className={`w-4 h-4 border ${isSelected ? 'bg-green-500' : 'bg-gray-600'} rounded-full`} />
+            <div className={`w-6 h-6 border ${isSelected ? 'bg-green-500' : 'bg-transparent border-[#4D4F65]'} rounded-full`} />
           </label>
         )}
         <span className="flex-grow text-center text-[#1A1B26]">{title}</span>
@@ -203,16 +205,19 @@ exampleFunction();
             background: 'transparent',
           }}
           wrapLines={true}
-          lineProps={lineNumber => ({
-            style: {
-              backgroundColor: code.split('\n')[lineNumber - 1].includes('name: "Example"') ? highlightColor : 'transparent',
-              display: 'block',
-              width: '100%',
-              height: '24px',
-              lineHeight: '24px',
-              color: code.split('\n')[lineNumber - 1].includes('name: "Example"') ? '#FFFFFF' : undefined,
-            },
-          })}
+          lineProps={lineNumber => {
+            const line = code.split('\n')[lineNumber - 1];
+            return {
+              style: {
+                backgroundColor: line && line.includes('name: "Example"') ? highlightColor : 'transparent',
+                display: 'block',
+                width: '100%',
+                height: '24px',
+                lineHeight: '24px',
+                color: line && line.includes('name: "Example"') ? '#FFFFFF' : undefined,
+              },
+            };
+          }}
         >
           {code}
         </SyntaxHighlighter>
