@@ -173,7 +173,7 @@ exampleFunction();
               key={index}
               className="flex items-center h-6 px-2"
               style={{
-                backgroundColor: line.includes('name: "Example"') ? highlightColor : 'transparent',
+                backgroundColor: '#1E1F2B',
                 color: line.includes('name: "Example"') ? '#FFFFFF' : '#363848',
                 height: '24px'
               }}
