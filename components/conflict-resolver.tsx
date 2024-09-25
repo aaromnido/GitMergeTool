@@ -159,20 +159,23 @@ exampleFunction();
               checked={isSelected}
               onChange={onSelect}
             />
-            <div className={`w-6 h-6 border ${isSelected ? 'bg-green-500' : 'bg-transparent border-[#4D4F65]'} rounded-full`} />
+            <div className={`w-6 h-6 border-4 ${isSelected ? 'bg-[#74C991] border-[#74C991]' : 'bg-transparent border-[#4D4F65]'} rounded-full flex items-center justify-center`}>
+              {isSelected && <div className="w-3 h-3 bg-[#1A1B26] rounded-full" />}
+            </div>
           </label>
         )}
         <span className="flex-grow text-center text-[#1A1B26]">{title}</span>
       </div>
       <div className="flex-grow overflow-auto relative">
-        <div className="absolute left-0 top-0 bottom-0 w-12 bg-[#1E1F2B] text-[#363848] text-xs select-none flex flex-col" style={{ fontSize: '12px' }}>
+        <div className="absolute left-0 top-0 bottom-0 w-12 bg-[#1E1F2B] text-[#363848] text-xs select-none flex flex-col" style={{ fontSize: '12px', lineHeight: '24px' }}>
           {code.split('\n').map((line, index) => (
             <div 
               key={index}
               className="flex items-center h-6 px-2"
               style={{
                 backgroundColor: line.includes('name: "Example"') ? highlightColor : 'transparent',
-                color: line.includes('name: "Example"') ? '#FFFFFF' : '#363848'
+                color: line.includes('name: "Example"') ? '#FFFFFF' : '#363848',
+                height: '24px'
               }}
             >
               <label className="flex items-center cursor-pointer mr-1">
@@ -203,6 +206,7 @@ exampleFunction();
             margin: 0,
             padding: '0 1rem 0 3rem',
             background: 'transparent',
+            lineHeight: '24px'
           }}
           wrapLines={true}
           lineProps={lineNumber => {
